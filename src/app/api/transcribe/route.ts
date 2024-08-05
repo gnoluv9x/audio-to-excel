@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic'; // defaults to auto
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
+    console.log('Debug_here formData: ', formData);
     const file = formData.get('file') as File | null;
 
     if (!file) {
@@ -16,6 +17,8 @@ export async function POST(request: NextRequest) {
 
     const fileBase64 = Buffer.from(fileBuffer).toString('base64');
 
+    console.log('Debug_here process.env.NLP_API_KEY: ', process.env.NLP_API_KEY);
+
     const resp = await fetch('https://api.nlpcloud.io/v1/gpu/whisper/asr', {
       method: 'POST',
       headers: {
@@ -26,7 +29,11 @@ export async function POST(request: NextRequest) {
         encoded_file: fileBase64,
         input_language: 'vi',
       }),
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+    console.log('Debug_here resp?: ', resp);
 
     return NextResponse.json(
       {
@@ -36,6 +43,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error('Error processing file:', error);
-    return NextResponse.json({ error: 'Error processing file' }, { status: 500 });
+    return NextResponse.json({ error: 'Hết hạn rồi, chờ 1 lát rồi thử lại' }, { status: 500 });
   }
 }

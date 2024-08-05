@@ -28,7 +28,11 @@ const UploadForm: React.FC<UploadFormProps> = () => {
       const resp = await fetch('/api/transcribe', {
         method: 'POST',
         body: formData,
-      }).then((resp) => resp.json());
+      })
+        .then((resp) => resp.json())
+        .catch((err) => {
+          console.log('Debug_here err: ', err);
+        });
 
       console.log('Debug_here resp: ', resp);
 
@@ -71,7 +75,6 @@ const UploadForm: React.FC<UploadFormProps> = () => {
   };
 
   const handleBeforeUpload = (file: any) => {
-    console.log('Debug_here file: ', file);
     // validate file type
     const isImage = file.type.startsWith('audio/');
     if (!isImage) {
