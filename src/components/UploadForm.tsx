@@ -106,7 +106,7 @@ const UploadForm: React.FC<UploadFormProps> = () => {
   return (
     <Form form={form} onFinish={handleSubmit} layout="vertical">
       <Form.Item
-        label="Ảnh"
+        label="Chọn file mp3"
         name="file"
         labelAlign="left"
         valuePropName="fileList"
