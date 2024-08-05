@@ -39,9 +39,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Error processing file' }, { status: 500 });
   }
 }
-
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
