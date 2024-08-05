@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     const resp = await fetch('https://api.nlpcloud.io/v1/gpu/whisper/asr', {
       method: 'POST',
       headers: {
-        Authorization: `Token de7c5e29c980c66ce2c12c0ce7e85e8aa6303b86`,
+        Authorization: `Token ${process.env.NLP_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
